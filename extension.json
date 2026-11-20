@@ -1,0 +1,60 @@
+{
+  "id": "dock",
+  "version": "0.1",
+  "title": "Dock",
+  "description": "One rail of every renderer beside a stage that holds them, with shelf pages pinned below: click a mark or press ⌃1…⌃9 to show one.",
+  "requires": { "tower": "2.13" },
+  "renderers": { "dock": { "root": "out" } },
+  "settings": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "home": {
+        "type": "string",
+        "description": "The renderer the dock opens on when its address names none. Unset, the config's `renderer` unless that is the dock, else `page`."
+      },
+      "order": {
+        "type": "array",
+        "items": { "type": "string" },
+        "default": [],
+        "description": "Renderers drawn first on the rail, in this order; the rest follow in the tower's order."
+      },
+      "hidden": {
+        "type": "array",
+        "items": { "type": "string" },
+        "default": [],
+        "description": "Renderers left off the rail."
+      },
+      "pins": {
+        "type": "array",
+        "default": [],
+        "description": "Shelf entries pinned to the rail below the renderers, by floor and label, so reordering a shelf doesn't move them: `initials` and `color` over the ones drawn from the label.",
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["floor", "label"],
+          "properties": {
+            "floor": { "type": "string", "minLength": 1 },
+            "label": { "type": "string", "minLength": 1 },
+            "initials": { "type": "string", "minLength": 1, "maxLength": 3 },
+            "color": { "type": "string", "minLength": 1 }
+          }
+        }
+      },
+      "marks": {
+        "type": "object",
+        "default": {},
+        "description": "Each renderer's mark on the rail, by name: `initials` (one to three characters) and `color` (any CSS colour) over the ones drawn from its name, and `label`, the name its tooltip shows, over its extension's title.",
+        "additionalProperties": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "label": { "type": "string", "minLength": 1 },
+            "initials": { "type": "string", "minLength": 1, "maxLength": 3 },
+            "color": { "type": "string", "minLength": 1 }
+          }
+        }
+      }
+    }
+  }
+}

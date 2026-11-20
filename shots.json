@@ -1,0 +1,26 @@
+{
+  "settings": { "home": "page" },
+  "scenes": [
+    {
+      "name": "dock",
+      "open": "r/dock/#page",
+      "size": "1280x800",
+      "steps": [
+        { "until": ".stage iframe.on" },
+        { "eval": "new Promise((done) => { const f = document.querySelector('.stage iframe'); const settle = () => setTimeout(done, 2500); f.contentDocument?.readyState === 'complete' ? settle() : f.addEventListener('load', settle, { once: true }) })" }
+      ]
+    },
+    {
+      "name": "extensions",
+      "open": "r/dock/#page",
+      "size": "1280x800",
+      "steps": [
+        { "until": ".stage iframe.on" },
+        { "click": "#ext-btn" },
+        { "until": "#ext-pop:not([hidden]) #ext-list *" },
+        { "wait": 500 }
+      ],
+      "crop": [".rail", "#ext-pop"]
+    }
+  ]
+}
